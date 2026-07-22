@@ -4,12 +4,14 @@ const morgan=require('morgan');
 const hetmet=require('helmet');
 const dotenv=require('dotenv');
 const employeeRouter=require("./routes/employee.routes")
+const leaveRouter=require("./routes/leave.routes")
 
 dotenv.config();
 
 const app=express();
 app.use(express.json());
 app.use("/api/employee",employeeRouter)
+app.use("/api/employee/leave",leaveRouter)
 app.use(cors());
 app.use(morgan("dev"));
 app.use(hetmet());
