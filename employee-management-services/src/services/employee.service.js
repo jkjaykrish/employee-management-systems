@@ -32,7 +32,7 @@ const updateEmployeeService = async (employeeData) => {
   const salt = await bcrypt.genSalt(10);
   employeeData.password = await bcrypt.hash(employeeData.password, salt);
   return await employeeModel.findByIdAndUpdate(
-    employeeData._id,
+    employeeData.id,
     { $set: employeeData },
     { new: true },
   );
@@ -46,9 +46,9 @@ const deleteEmployeeService = async (employeeData) => {
   );
 };
 
-const findAllEmployeeService=async ()=>{
-  return await employeeModel.find({status:true})
-}
+const findAllEmployeeService = async () => {
+  return await employeeModel.find({ status: true });
+};
 
 module.exports = {
   createEmployeeService,
@@ -56,5 +56,5 @@ module.exports = {
   updateEmployeeService,
   getOneEmployeeService,
   deleteEmployeeService,
-  findAllEmployeeService
+  findAllEmployeeService,
 };

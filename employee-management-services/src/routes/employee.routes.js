@@ -13,7 +13,7 @@ const { auth } = require("../middlewares/auth.middleware");
 const { authorize } = require("../middlewares/role.middleware");
 
 router.post(
-  "/",
+  "/",auth,authorize("Admin"),
   validate(createEmployee),
   employeeController.createEmployeeController,
 );

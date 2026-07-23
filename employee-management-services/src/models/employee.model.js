@@ -27,7 +27,7 @@ const employeeSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
     mobile: {
       type: String,
@@ -43,11 +43,11 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       required: true,
       enum: ["Admin", "Manager", "Employee"],
-      default: "Employee",
+      default: "employee",
     },
     reportingManager: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Employee",
+      ref: "employee",
     },
     status: {
       type: Boolean,
@@ -68,7 +68,7 @@ employeeSchema.pre("save", async function (next) {
       { $inc: { sequenceValue: 1 } },
       { new: true, upsert: true },
     );
-    this.employeeId=`EMP${String(counter_.sequenceValue).padStart(4,"0")}`
+    this.employeeId = `EMP${String(counter_.sequenceValue).padStart(4, "0")}`;
   }
   if (this.isModified("password")) {
     const salt = await bcrypt.genSalt(10);
@@ -79,4 +79,4 @@ employeeSchema.pre("save", async function (next) {
 employeeSchema.methods.comparePassword = async function (employeePassword) {
   return await bcrypt.compare(employeePassword, this.password);
 };
-module.exports = mongoose.model("Employee", employeeSchema);
+module.exports = mongoose.model("employee", employeeSchema);

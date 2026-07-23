@@ -17,7 +17,7 @@ const employeeLogin = joi.object({
   password: joi.string().min(6).max(20).trim().required(),
 });
 const updateEmployee = joi.object({
-  _id: joi.string().hex().length(24).optional(),
+  id: joi.string().hex().length(24).optional(),
   firstName: joi.string().trim().required(),
   lastName: joi.string().trim().required(),
   email: joi.string().trim().lowercase().required(),
@@ -37,12 +37,10 @@ const deleteEmployee = joi.object({
   _id: joi.string().hex().length(24).optional(),
 });
 
-
-
 module.exports = {
   createEmployee,
   employeeLogin,
   updateEmployee,
   FindOneEmployee,
-  deleteEmployee
+  deleteEmployee,
 };

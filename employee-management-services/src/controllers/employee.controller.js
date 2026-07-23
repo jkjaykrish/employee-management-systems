@@ -4,7 +4,7 @@ const {
   updateEmployeeService,
   getOneEmployeeService,
   deleteEmployeeService,
-  findAllEmployeeService
+  findAllEmployeeService,
 } = require("../services/employee.service");
 
 const createEmployeeController = async (req, res) => {
@@ -25,7 +25,7 @@ const loginEmployeeController = async (req, res) => {
     const loginEmployee = await loginUserService(req.body);
     return res.status(200).json({
       success: true,
-      message: "Access token ",
+      message: "Login Successfully ",
       resultData: loginEmployee,
     });
   } catch (error) {
@@ -103,24 +103,30 @@ const deleteEmployeeController = async (req, res) => {
   }
 };
 
-const findAllEmployeeController=async (req,res)=>{
-  try{
-const getAllEmployee= await findAllEmployeeService();
-if(!getAllEmployee){
-  return res.status(404).json({success:false,message:"Employee not found"})
-}
-return res.status(200).json({success:true,message:"Find All Employee Successfully",resultData:getAllEmployee})
+const findAllEmployeeController = async (req, res) => {
+  try {
+    const getAllEmployee = await findAllEmployeeService();
+    if (!getAllEmployee) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Employee not found" });
+    }
+    return res
+      .status(200)
+      .json({
+        success: true,
+        message: "Find All Employee Successfully",
+        resultData: getAllEmployee,
+      });
+  } catch (error) {
+    return res.status(500).json({ success: true, message: error.message });
   }
-  catch(error)
-  {
-    return res.status(500).json({success:true,message:error.message})
-  }
-}
+};
 module.exports = {
   createEmployeeController,
   loginEmployeeController,
   updateEmployeeController,
   getOneEmployeeController,
   deleteEmployeeController,
-  findAllEmployeeController
+  findAllEmployeeController,
 };
